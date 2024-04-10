@@ -10,7 +10,7 @@
 [![slack-community](https://img.shields.io/badge/Slack-4A154B?style=plastic&logo=slack&logoColor=white)](https://slack.bridgecrew.io/)
 
 
-TerraGoat is Bridgecrew's "Vulnerable by Design" Terraform repository.
+TerraGoat is Bridgecrew's "Vulnerable by Design" Terraform repository. test
 ![Terragoat](terragoat-logo.png)
 
 TerraGoat is Bridgecrew's "Vulnerable by Design" Terraform repository.
