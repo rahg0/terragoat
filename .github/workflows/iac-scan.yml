@@ -21,8 +21,8 @@ jobs:
       PROJECT_KEY: slrk # Set the desired project to run the cli scanning with
     steps:
       # Checkout your repository under $GITHUB_WORKSPACE, so your job can access it
-      #- name: Checkout Repository
-      #  uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Run Orca IaC Scan
         uses: orcasecurity/shiftleft-iac-action@v1
