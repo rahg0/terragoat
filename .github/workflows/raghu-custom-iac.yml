@@ -1,0 +1,44 @@
+name: raghu custom Orca IaC Scan Workflow
+on:
+  # Scan for each push event on your protected branch. If you have a different branch configured, please adjust the configuration accordingly by replacing 'main'.
+  push:
+    branches:
+      - master
+      - main
+  # NOTE: To enable scanning for pull requests, uncomment the section below.
+  pull_request:
+    branches:
+      - master
+      - main
+  # NOTE: To schedule a daily scan at midnight, uncomment the section below.
+  #schedule:
+    #- cron: '0 0 * * *'
+  
+jobs:
+  orca-iac_scan:
+    name: Raghu Orca IaC Scan
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_KEY: slrk # Set the desired project to run the cli scanning with
+    steps:
+      # Checkout your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.6.0"
+      - name: Terraform Format check
+        id: fmt
+        run: terraform fmt -check -recursive -diff
+        
+      - name: Run Orca IaC Scan
+        uses: orcasecurity/shiftleft-iac-action@v1
+        with:
+          api_token: ${{ secrets.ORCA_SECURITY_API_TOKEN }}
+          project_key: ${{ env.PROJECT_KEY }}
+          timeout: 40m
+          path:
+            # scanning directories: ./terraform/ ./sub-dir/ and a file: ./Dockerfile
+            ./
